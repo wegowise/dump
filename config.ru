@@ -6,4 +6,4 @@ if ENV['DUMPSTER_USERNAME'] && ENV['DUMPSTER_PASSWORD']
   end
 end
 
-run Dump
+run Dumpster
