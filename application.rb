@@ -14,17 +14,18 @@ end
 
 class Dumpster < Sinatra::Base
   get '/' do
+    "<h1>What can I dump for you today?</h1>" +
     Dump.reverse_order(:created_at).all.map {|d|
-      %[<a href="/dumps/#{d.id}/body">Fixture for #{d.id}</a> created on #{d.created_at}]
-    }.join("<br/>")
+      %[<a href="/dumps/#{d.id}/body">Fixture for #{d.key}</a> created on #{d.created_at}]
+    }.join('<br/>')
   end
 
   get %r{/dumps/(\d+)/body} do |id|
-    (d = Dump[id] || halt).body
+    (Dump[id] || halt).body
   end
 
   post '/dump' do
-    id = Dump.create params
-    uri("/dumps/#{id}/body")
+    d = Dump.create params
+    uri("/dumps/#{d.id}/body")
   end
 end
