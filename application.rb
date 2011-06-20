@@ -1,9 +1,7 @@
 require 'bundler'
 Bundler.require(:default, (ENV['RACK_ENV'] || :development).to_sym)
 
-if ['development', nil].include? ENV['RACK_ENV']
- ENV['DATABASE_URL'] ||= "postgres://#{ENV['USER']}:@localhost/dump_development"
-end
+ENV['DATABASE_URL'] ||= "postgres://#{ENV['USER']}:@localhost/dump_development"
 DB = Sequel.connect(ENV['DATABASE_URL'])
 
 class Dump < Sequel::Model
@@ -13,6 +11,9 @@ class Dump < Sequel::Model
 end
 
 class Dumpster < Sinatra::Base
+  helpers Sinatra::Toadhopper
+  set :toadhopper, api_key: ENV['HOPTOAD_API_KEY'], notify_host: ENV['HOPTOAD_HOST']
+
   get '/' do
     "<h1>What can I dump for you today?</h1>" +
     Dump.reverse_order(:created_at).all.map {|d|
@@ -21,11 +22,13 @@ class Dumpster < Sinatra::Base
   end
 
   get %r{/dumps/(\d+)/body} do |id|
-    (Dump[id] || halt).body
+    (Dump[id] || raise(Sinatra::NotFound)).body
   end
 
   post '/dump' do
     d = Dump.create params
     uri("/dumps/#{d.id}/body")
   end
+
+  error(400..510) { post_error_to_hoptoad!; 'BOOM' } if production?
 end
