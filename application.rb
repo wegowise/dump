@@ -30,5 +30,5 @@ class Dumpster < Sinatra::Base
     uri("/dumps/#{d.id}/body")
   end
 
-  error(400..510) { post_error_to_hoptoad!; 'BOOM' } if production?
+  error(400..510) { post_error_to_hoptoad!; $!.message } if production?
 end
