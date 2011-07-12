@@ -15,8 +15,8 @@ class Dumpster < Sinatra::Base
   set :toadhopper, api_key: ENV['HOPTOAD_API_KEY'], notify_host: ENV['HOPTOAD_HOST']
 
   get '/' do
-    "<h1>What can I dump for you today?</h1>" +
-    Dump.reverse_order(:created_at).all.map {|d|
+    query = Dump.reverse_order(:created_at).select(:id, :created_at, :key).limit(params[:limit] || 200)
+    "<h1>What can I dump for you today?</h1>" + query.all.map {|d|
       %[<a href="/dumps/#{d.id}/body">Fixture for #{d.key}</a> created on #{d.created_at}]
     }.join('<br/>')
   end
