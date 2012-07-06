@@ -7,4 +7,5 @@ gem 'airbrake'
 
 group :development do
   gem 'ripl'
+  gem 'heroku'
 end
