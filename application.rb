@@ -4,6 +4,8 @@ Bundler.require(:default, (ENV['RACK_ENV'] || :development).to_sym)
 ENV['DATABASE_URL'] ||= "postgres://#{ENV['USER']}:@localhost/dump_development"
 DB = Sequel.connect(ENV['DATABASE_URL'])
 
+require_relative 'lib/airbrake'
+
 class Dump < Sequel::Model
   def before_create
     self.created_at ||= Time.now.utc
@@ -11,9 +13,6 @@ class Dump < Sequel::Model
 end
 
 class Dumpster < Sinatra::Base
-  helpers Sinatra::Toadhopper
-  set :toadhopper, api_key: ENV['HOPTOAD_API_KEY'], notify_host: ENV['HOPTOAD_HOST']
-
   get '/' do
     query = Dump.reverse_order(:created_at).select(:id, :created_at, :key).limit(params[:limit] || 200)
     "<h1>What can I dump for you today?</h1>" + query.all.map {|d|
@@ -29,6 +28,4 @@ class Dumpster < Sinatra::Base
     d = Dump.create params
     uri("/dumps/#{d.id}/body")
   end
-
-  error { post_error_to_hoptoad!; $!.message if $!} if production?
 end
