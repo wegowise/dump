@@ -1,5 +1,5 @@
 GEM
-  remote: http://rubygems.org/
+  remote: https://rubygems.org/
   specs:
     activesupport (3.2.6)
       i18n (~> 0.6)
@@ -48,3 +48,6 @@ DEPENDENCIES
   ripl
   sequel
   sinatra (~> 1.2.0)
+
+BUNDLED WITH
+   1.11.2
