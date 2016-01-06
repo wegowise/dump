@@ -4,7 +4,7 @@ Bundler.require(:default, (ENV['RACK_ENV'] || :development).to_sym)
 ENV['DATABASE_URL'] ||= "postgres://#{ENV['USER']}:@localhost/dump_development"
 DB = Sequel.connect(ENV['DATABASE_URL'])
 
-require_relative 'lib/airbrake'
+require_relative 'lib/honeybadger'
 
 class Dump < Sequel::Model
   def before_create
