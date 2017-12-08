@@ -3,6 +3,8 @@ Bundler.require(:default, (ENV['RACK_ENV'] || :development).to_sym)
 
 ENV['DATABASE_URL'] ||= "postgres://#{ENV['USER']}:@localhost/dump_development"
 DB = Sequel.connect(ENV['DATABASE_URL'])
+DB.extension(:connection_validator)
+DB.pool.connection_validation_timeout = -1
 
 require_relative 'lib/honeybadger'
 
