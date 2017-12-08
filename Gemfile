@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 ruby File.read('.ruby-version').strip
 
-gem 'activesupport', '~> 3.2.0'
+gem 'activesupport'
 gem 'honeybadger'
 gem 'puma'
 gem 'rack', '~> 1.5.0'
