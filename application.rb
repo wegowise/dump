@@ -1,7 +1,8 @@
 require 'bundler'
-Bundler.require(:default, (ENV['RACK_ENV'] || :development).to_sym)
+ENV['RACK_ENV'] ||= 'development'
+Bundler.require(:default, ENV['RACK_ENV'])
 
-ENV['DATABASE_URL'] ||= "postgres://#{ENV['USER']}:@localhost/dump_development"
+ENV['DATABASE_URL'] ||= "postgres://#{ENV['USER']}:@localhost/dump_#{ENV['RACK_ENV']}"
 DB = Sequel.connect(ENV['DATABASE_URL'])
 DB.extension(:connection_validator)
 DB.pool.connection_validation_timeout = -1
@@ -20,7 +21,7 @@ class Dumpster < Sinatra::Base
     "<p>What can I dump for you today?</p>" +
      "<div><a href='/stats'>Daily deadlock stats</a></div>" +
      query.all.map {|d|
-      %[<a href="/dumps/#{d.id}/body">Fixture for #{d.key}</a> created on #{d.created_at}]
+      "<a href='/dumps/#{d.id}/body'>Fixture for #{d.key}</a> created on #{d.created_at}"
     }.join('<br/>')
   end
 

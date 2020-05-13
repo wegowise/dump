@@ -9,3 +9,8 @@ gem 'rake'
 gem 'sinatra', '~> 1.2.0', :require => 'sinatra/base'
 gem 'sequel'
 gem 'pg'
+
+group :development, :test do
+  gem 'rack-test'
+  gem 'rspec'
+end
