@@ -3,9 +3,9 @@ ruby File.read('.ruby-version').strip
 
 gem 'honeybadger'
 gem 'puma'
-gem 'rack', '~> 1.5.0'
+gem 'rack'
 gem 'rake'
-gem 'sinatra', '~> 1.2.0', :require => 'sinatra/base'
+gem 'sinatra'
 gem 'sequel'
 gem 'pg'
 
