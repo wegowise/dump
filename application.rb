@@ -7,8 +7,6 @@ DB = Sequel.connect(ENV['DATABASE_URL'])
 DB.extension(:connection_validator)
 DB.pool.connection_validation_timeout = -1
 
-require_relative 'lib/honeybadger'
-
 class Dump < Sequel::Model
   def before_create
     self.created_at ||= Time.now.utc

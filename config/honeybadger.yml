@@ -1,0 +1,13 @@
+---
+debug: false
+metrics:
+  enabled: false
+  gc_profiler: false
+production:
+  report_data: true
+staging:
+  report_data: true
+development:
+  report_data: false
+test:
+  report_data: false
