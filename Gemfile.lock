@@ -12,7 +12,7 @@ GEM
       concurrent-ruby (~> 1.0)
     minitest (5.10.3)
     pg (0.18.4)
-    puma (2.15.3)
+    puma (3.12.4)
     rack (1.5.5)
     rake (10.4.2)
     sequel (3.44.0)
