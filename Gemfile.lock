@@ -13,7 +13,7 @@ GEM
     minitest (5.10.3)
     pg (0.18.4)
     puma (2.15.3)
-    rack (1.5.5)
+    rack (1.6.12)
     rake (10.4.2)
     sequel (3.44.0)
     sinatra (1.2.8)
@@ -32,7 +32,7 @@ DEPENDENCIES
   honeybadger
   pg
   puma
-  rack (~> 1.5.0)
+  rack (~> 1.6.12)
   rake
   sequel
   sinatra (~> 1.2.0)
