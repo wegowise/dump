@@ -14,7 +14,7 @@ GEM
     pg (0.18.4)
     puma (2.15.3)
     rack (1.5.5)
-    rake (10.4.2)
+    rake (12.3.3)
     sequel (3.44.0)
     sinatra (1.2.8)
       rack (~> 1.1)
